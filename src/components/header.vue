@@ -20,11 +20,11 @@
 </el-dropdown>
 </span>
 <span class="option">
-    <span class="inspection">巡检养护</span>
-    <span class="health">健康检测</span>
+    <span class="inspection" @click="inspection">巡检养护</span>
+    <span class="health" @click="health">健康检测</span>
     <span class="space">空间量测</span>
     <span class="venue">场地布置</span>
-    <span class="bridge">桥梁量化</span>
+    <span class="bridge" @click="bridge">桥梁量化</span>
 </span>
 
 </header>
@@ -38,6 +38,15 @@ export default {
   methods: {
     handleCommand(command) {
       this.$router.push({ path: "/"+command});
+    },
+    inspection:function(){
+      this.$emit('inspection')
+    },
+    bridge:function(){
+      this.$emit('bridge')
+    },
+    health:function(){
+      this.$emit('health')
     }
   },
   props: {

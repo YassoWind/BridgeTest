@@ -1,18 +1,22 @@
 <template>
 <div class="main">
-<headercom :text="text"/>
+<headercom :text="text" @inspection="inspectionchange"  @bridge="bridgechange" @health="healthchange"/>
 <div class="content">
   <div class="sidebar">
     <el-tree
-      :data="data4"
+      :data="data"
       node-key="id"
+      ref="tree"
       default-expand-all
+      highlight-current
+      :props="defaultProps"
       :expand-on-click-node="false"
+      @node-click="jumpurl"
     >
     </el-tree>
   </div>
   <div class="gis">
-
+    <h1>白沙洲大桥5</h1>
   </div>
 </div>
 </div>
@@ -20,52 +24,84 @@
 </template>
 
 <script>
+import {changejson} from "../assets/js/changejson.js"
 import headercom from "../components/header";
+import store from '@/vuex/store'
 
 export default {
   data() {
-    const data = [
-      {id: 1,label: "一级 1",children: [{id: 4,label: "二级 1-1"},{id: 10,label: "三级 1-1-2"}]},
-      {id: 2,label: "一级 2",children: [{id: 5,label: "二级 2-1"},{id: 6,label: "二级 2-2"}]},
-      {id: 3,label: "一级 3",children: [{id: 7,label: "二级 3-1"},{id: 8,label: "二级 3-2"}]}
-    ];
     return {
-      data4: JSON.parse(JSON.stringify(data)),
-      data5: JSON.parse(JSON.stringify(data)),
-      text:"白沙洲大桥5"
+      defaultProps: {
+        children: "children",
+        label: "name"
+      },
+      data: [{name:""}],
+      text: "白沙洲大桥5", 
     };
   },
+  store,
   methods: {
+    jumpurl:function(data) {
+      console.log(data);
+    },
+    inspectionchange:function(){
+      console.log(this.data[0].name)
+      if(this.data[0].name!="巡检养护"){
+        var json = changejson(this.$store.state.json.inspection)
+        this.data = JSON.parse(JSON.stringify(json));
+      }else{
+        var data2=[{name:""}];
+        this.data = JSON.parse(JSON.stringify(data2));
+      }
+      // console.log(this.data[0].name)
+    },
+    bridgechange:function(){
+      if(this.data[0].name!="桥梁亮化"){
+        var json = changejson(this.$store.state.json.bridge)
+        this.data = JSON.parse(JSON.stringify(json));
+      }else{
+        var data2=[{name:""}];
+        this.data = JSON.parse(JSON.stringify(data2));
+      }
+    },
+    healthchange:function(){
+      if(this.data[0].name!="动态应变计"){
+        var json = changejson(this.$store.state.json.health)
+        this.data = JSON.parse(JSON.stringify(json));
+      }else{
+        var data2=[{name:""}];
+        this.data = JSON.parse(JSON.stringify(data2));
+      }
+    }
   },
-  components:{
+  components: {
     headercom
-  },
+  }
 };
 </script>
 
 <style lang="less" scoped>
-.main{
-width: 100%;
-height: 100%;
-.content {
+.main {
   width: 100%;
-  height: calc(100% - 6px);
-  display: flex;
-  .sidebar {
-    width: 13%;
-    min-width: 240px;
-    height: 100%;
-    background-color: #fff;
-    float: left;
-  }
-  .gis {
-    width: 87%;
-    height: 100%;
-    background-color: #7c7c7c;
-    min-width: 800px;
-    float: right;
+  height: 100%;
+  .content {
+    width: 100%;
+    height: calc(100% - 6px);
+    display: flex;
+    .sidebar {
+      width: 13%;
+      min-width: 240px;
+      height: 100%;
+      background-color: #fff;
+      float: left;
+    }
+    .gis {
+      width: 87%;
+      height: 100%;
+      background-color: #7c7c7c;
+      min-width: 800px;
+      float: right;
+    }
   }
 }
-}
-
 </style>
