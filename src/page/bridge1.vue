@@ -1,6 +1,6 @@
 <template>
 <div class="main">
-<inspectioncom v-show="show"/>
+<inspectioncom v-show="show"  :list="inspectionJson"/>
 <headercom :text="text" @inspection="inspectionchange"  @bridge="bridgechange" @health="healthchange"/>
 <div class="content">
   <div class="sidebar">
@@ -17,7 +17,7 @@
     </el-tree>
   </div>
   <div class="gis">
-    <h1>白沙洲大桥1</h1>
+    <h1>{{text}}</h1>
   </div>
 </div>
 </div>
@@ -25,10 +25,11 @@
 </template>
 
 <script>
-import {changejson} from "../assets/js/changejson.js";
+import { changejson } from "../assets/js/changejson.js";
+import { jsonbylist } from "../assets/js/jsonbylist.js";
 import headercom from "../components/header";
-import store from '@/vuex/store';
-import inspectioncom from "../components/inspectioncom"
+import store from "@/vuex/store";
+import inspectioncom from "../components/inspectioncom";
 
 export default {
   data() {
@@ -37,65 +38,62 @@ export default {
         children: "children",
         label: "name"
       },
-      data: [{name:""}],
-      text: "白沙洲大桥1", 
-      show:false
+      data: [{ name: "" }],
+      text: "白沙洲大桥1",
+      show: false,
+      inspectionJson: []
     };
   },
   store,
   methods: {
-    jumpurl:function(data) {
+    jumpurl: function(data) {
       console.log(data);
     },
-    inspectionchange:function(){
-      console.log(this.data[0].name);
-      if(this.data[0].name=="桥梁亮化"||this.data[0].name=="动态应变计"){
-        var data2=[{name:""}];
+    //巡检养护
+    inspectionchange: function() {
+      //控制其他树显示隐藏
+      if (this.data[0].name == "桥梁亮化" || this.data[0].name == "动态应变计") {
+        var data2 = [{ name: "" }];
         this.data = JSON.parse(JSON.stringify(data2));
       }
       this.show = !this.show;
-      // console.log(this.data[0].name)
-      // if(this.data[0].name!="巡检养护"){
-      //   var json = changejson(this.$store.state.json.inspection)
-      //   this.data = JSON.parse(JSON.stringify(json));
-      // }else{
-      //   var data2=[{name:""}];
-      //   this.data = JSON.parse(JSON.stringify(data2));
-      // }
-      // // console.log(this.data[0].name)
     },
-    bridgechange:function(){
+    //桥梁量化
+    bridgechange: function() {
       this.show = false;
-      if(this.data[0].name!="桥梁亮化"){
-        var json = changejson(this.$store.state.json.bridge)
+      if (this.data[0].name != "桥梁亮化") {
+        var json = changejson(this.$store.state.json.bridge);
         this.data = JSON.parse(JSON.stringify(json));
-      }else{
-        var data2=[{name:""}];
+      } else {
+        var data2 = [{ name: "" }];
         this.data = JSON.parse(JSON.stringify(data2));
       }
     },
-    healthchange:function(){
+    //健康检测
+    healthchange: function() {
       this.show = false;
-      if(this.data[0].name!="动态应变计"){
-        var json = changejson(this.$store.state.json.health)
+      if (this.data[0].name != "动态应变计") {
+        var json = changejson(this.$store.state.json.health);
         this.data = JSON.parse(JSON.stringify(json));
-      }else{
-        var data2=[{name:""}];
+      } else {
+        var data2 = [{ name: "" }];
         this.data = JSON.parse(JSON.stringify(data2));
       }
-    },
-    //  renderContent(h, { node, data, store }) {
-    //     return (
-    //       <span class="custom-tree-node">
-    //         <span>{node.label}</span>
-    //         <span>
-    //           <el-button type="text">跳转</el-button>
-    //         </span>
-    //       </span>);
-    //   }
+    }
+
+  
+
+
+
   },
   components: {
-    headercom,inspectioncom
+    headercom,
+    inspectioncom
+  },
+  created:function(){
+    //再创建时期将巡检养护的数据加载
+      var json = changejson(this.$store.state.json.inspection);
+      this.inspectionJson = jsonbylist(json);
   }
 };
 </script>
@@ -124,12 +122,12 @@ export default {
     }
   }
 }
-  .custom-tree-node {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px;
-  }
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
 </style>
