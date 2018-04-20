@@ -18,7 +18,6 @@ export function jsonbylist(json) {
                         json2.imgSrc = "http://bhm.bsri.com.cn:200/uploadFiles/nanchang2"+data.picUrl;
                         arr.push(json2)
                     }
-                    
                 }
             }
         })
@@ -26,3 +25,4 @@ export function jsonbylist(json) {
 
     return arr;
 }
+

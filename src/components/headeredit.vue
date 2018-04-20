@@ -9,22 +9,22 @@
     {{text}}<i class="el-icon-caret-bottom"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item command="bridge1">白沙洲大桥1</el-dropdown-item>
-    <el-dropdown-item command="bridge2">白沙洲大桥2</el-dropdown-item>
-    <el-dropdown-item command="bridge3">白沙洲大桥3</el-dropdown-item>
-    <el-dropdown-item command="bridge4">白沙洲大桥4</el-dropdown-item>
-    <el-dropdown-item command="bridge5">白沙洲大桥5</el-dropdown-item>
-    <el-dropdown-item command="bridge6">白沙洲大桥6</el-dropdown-item>
-    <el-dropdown-item command="bridge7">白沙洲大桥7</el-dropdown-item>
+    <el-dropdown-item command="bridge1">新武黄立交</el-dropdown-item>
+    <el-dropdown-item command="bridge2">南湖大桥</el-dropdown-item>
+    <el-dropdown-item command="bridge3">青化立交</el-dropdown-item>
+    <el-dropdown-item command="bridge4">青年路立交</el-dropdown-item>
+    <el-dropdown-item command="bridge5">朱家河大桥</el-dropdown-item>
+    <el-dropdown-item command="bridge6">竹叶山立交</el-dropdown-item>
+    <el-dropdown-item command="bridge7">鹦鹉立交</el-dropdown-item>
   </el-dropdown-menu>
 </el-dropdown>
 </span>
 <span class="option">
-    <span class="inspection" @click="inspection">巡检养护</span>
-    <span class="health" @click="health">健康检测</span>
+    <span class="inspection" @click="menberEquipmentInfo">构件和设备信息</span>
+    <span class="health" @click="InspectionInfo">巡检管养信息</span>
     <span class="space">空间量测</span>
     <span class="venue">场地布置</span>
-    <span class="bridge" @click="bridge">桥梁量化</span>
+    <span class="bridge" @click="healthInfo">健康监测信息</span>
 </span>
 
 </header>
@@ -39,14 +39,14 @@ export default {
     handleCommand(command) {
       this.$router.push({ path: "/"+command});
     },
-    inspection:function(){
-      this.$emit('inspection')
+    menberEquipmentInfo:function(){
+      this.$emit('menberEquipmentInfo')
     },
-    bridge:function(){
-      this.$emit('bridge')
+    InspectionInfo:function(){
+      this.$emit('InspectionInfo')
     },
-    health:function(){
-      this.$emit('health')
+    healthInfo:function(){
+      this.$emit('healthInfo')
     }
   },
   props: {
@@ -69,9 +69,9 @@ header {
   min-width: 1055px;
   .logo {
     display: inline-block;
-    width: 65%;
+    width: 60%;
     padding-left: 20px;
-    min-width: 500px;
+    min-width: 420px;
   }
   .brigename {
     display: inline-block;
@@ -84,9 +84,9 @@ header {
   }
   .option {
     display: inline-block;
-    width: 25%;
+    width: 30%;
     text-align: right;
-    min-width: 400px;
+    min-width: 500px;
     span {
       margin: 0 10px;
     }

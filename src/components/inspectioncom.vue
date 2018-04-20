@@ -1,13 +1,15 @@
 <template>
+<transition name="el-fade-in-linear">
 <ul class="inspection">
     <li class="header">巡检养护</li>
-    <li v-for="item in list"><div class="left"><img :src="item.imgSrc"/></div>
+    <li v-for="item in list" ><div class="left"><img :src="item.imgSrc"/></div>
     <div class="content">
         <p>{{item.title}}</p><p>{{item.date}}</p>
     </div>
     <a @click="jumpurl(item.url)">跳转</a>
     </li>
 </ul>
+</transition>
 </template>
 
 <script>
@@ -37,7 +39,7 @@ export default {
   top: 50px;
   left: 0;
   z-index: 100;
-  background-color: #ededed;
+  background-color: #ffffff;
   border-radius: 3px;
   .header {
     width: 100%;
@@ -88,7 +90,7 @@ export default {
     border: 1px solid #333;
   }
   a:hover {
-    background-color: #ffffff;
+    background-color: #ededed;
   }
 }
 </style>

@@ -9,6 +9,7 @@ import bridge4 from '@/page/bridge4.vue';
 import bridge5 from '@/page/bridge5.vue';
 import bridge6 from '@/page/bridge6.vue';
 import bridge7 from '@/page/bridge7.vue';
+import bridgeInfoEdit from '@/page/bridgeInfoEdit.vue';
 Vue.use(Router)
 Vue.use(Toast)
 
@@ -21,6 +22,7 @@ export default new Router({
     {path: '/bridge5',name: 'bridge5',component: bridge5},
     {path: '/bridge6',name: 'bridge6',component: bridge6},
     {path: '/bridge7',name: 'bridge7',component: bridge7},
+    {path: '/bridgeInfoEdit',name: 'bridgeInfoEdit',component: bridgeInfoEdit},
     {path: '*',redirect : {name:"bridge1"}}
   ]
 })
